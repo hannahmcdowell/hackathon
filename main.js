@@ -1,17 +1,19 @@
 // TODO: Select all p tags within team-inner-content class
-const allText = document.querySelectorAll(".team-inner-content p");
+const allText = document.querySelectorAll("p, h1, h2, h3, h4, h5, h6, a, button");
 // Iterate over p tag node list. Pass in innerText to pig latin function. Replace p tag's innerText with the output.
+const pigLatin = pigLatinMemoized();
+
 allText.forEach((text) => {
   const updatedText = pigLatin(text.innerText);
   text.innerText = updatedText;
 });
 
 // change all h2 tags to pig latin
-const allh2 = document.querySelectorAll("h2");
-allh2.forEach((text) => {
-  const updatedText = pigLatin(text.innerText);
-  text.innerText = updatedText;
-});
+// const allh2 = document.querySelectorAll("h2");
+// allh2.forEach((text) => {
+//   const updatedText = pigLatin(text.innerText);
+//   text.innerText = updatedText;
+// });
 
 // change all of the borders of the team member images to pink
 const imgs = document.querySelectorAll(".team-member-image img");
@@ -20,11 +22,11 @@ imgs.forEach((img) => {
 });
 
 // change nav bar to pig latin
-const allLinks = document.querySelectorAll("a");
-allLinks.forEach((link) => {
-  const updatedText = pigLatin(link.innerText);
-  link.innerText = updatedText;
-});
+// const allLinks = document.querySelectorAll("a");
+// allLinks.forEach((link) => {
+//   const updatedText = pigLatin(link.innerText);
+//   link.innerText = updatedText;
+// });
 // change image under About Us and overlay color to pink
 // const bannerWrapper = window.getComputedStyle(
 //   document.querySelector(".banner-wrapper"),
@@ -81,28 +83,54 @@ logo.parentElement.removeChild(logo);
 
 // TODO: Create the pig latin translator function
 // https://www.getblend.com/blog/how-to-speak-pig-latin/
-function pigLatin(string) {
-  // split method to split the string into individual words, stored in an array
-  const wordArray = string.split(" ");
-  // map over the array and apply the logic for string manip inside of the callback
-  const pigLatinArray = wordArray.map((word) => {
-    word = word.toUpperCase();
-    if ("AEIOU".includes(word[0])) {
-      word = word + "YAY";
-    } else {
-      let vowelIndex = 1;
-      while (vowelIndex < word.length && !"AEIOUY".includes(word[vowelIndex])) {
-        vowelIndex++;
-      }
-      word = word.slice(vowelIndex) + word.slice(0, vowelIndex) + "AY";
-    }
-    return word[0] + word.slice(1).toLowerCase();
-    // rule 3
-    // If the word contains a hyphen, separate into two words, manipulate the words individually and join them with the hyphen
-  });
+// function pigLatin(string) {
+//   // split method to split the string into individual words, stored in an array
+//   const wordArray = string.split(" ");
+//   // map over the array and apply the logic for string manip inside of the callback
+//   const pigLatinArray = wordArray.map((word) => {
+//     word = word.toUpperCase();
+//     if ("AEIOU".includes(word[0])) {
+//       word = word + "YAY";
+//     } else {
+//       let vowelIndex = 1;
+//       while (vowelIndex < word.length && !"AEIOUY".includes(word[vowelIndex])) {
+//         vowelIndex++;
+//       }
+//       word = word.slice(vowelIndex) + word.slice(0, vowelIndex) + "AY";
+//     }
+//     return word[0] + word.slice(1).toLowerCase();
+//     // rule 3
+//     // If the word contains a hyphen, separate into two words, manipulate the words individually and join them with the hyphen
+//   });
+//   // join the array back into one string
+//   return pigLatinArray.join(" ");
+// }
 
-  // join the array back into one string
-  return pigLatinArray.join(" ");
+function pigLatinMemoized() {
+  // create cache
+  const translations = {};
+  // return out a pig latin function
+  return (string) => {
+    const wordArray = string.split(" ");
+    const pigLatinArray = wordArray.map((word) => {
+      word = word.toUpperCase();
+      if(translations[word] === undefined) {
+        let pigWord = word;
+        if ("AEIOU".includes(pigWord[0])) {
+          pigWord = pigWord + "YAY";
+        } else {
+          let vowelIndex = 1;
+          while (vowelIndex < pigWord.length && !"AEIOUY".includes(pigWord[vowelIndex])) {
+            vowelIndex++;
+          }
+          pigWord = pigWord.slice(vowelIndex) + pigWord.slice(0, vowelIndex) + "AY";
+        }
+        translations[word] = pigWord[0] + pigWord.slice(1).toLowerCase();
+      }
+      return translations[word];
+    });
+    return pigLatinArray.join(" ");
+  };
 }
 
 // Rotate Images
