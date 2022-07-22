@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 // TODO: Select all p tags within team-inner-content class
 const allText = document.querySelectorAll("p, h1, h2, h3, h4, h5, h6, a, button");
+=======
+//////////////////////////////////////////// ** SELECT AND UPDATE TEXT TO PIG LATIN
+const allText = document.querySelectorAll(
+  "p, h1, h2, h3, h4, h5, h6, a, button"
+);
+>>>>>>> fb4ee2746faf8b79be39abb47e4b90161f220ae5
 // Iterate over p tag node list. Pass in innerText to pig latin function. Replace p tag's innerText with the output.
 const pigLatin = pigLatinMemoized();
 
@@ -7,6 +14,13 @@ allText.forEach((text) => {
   const updatedText = pigLatin(text.innerText);
   text.innerText = updatedText;
 });
+
+// const allText = document.querySelectorAll(".team-inner-content p");
+// // Iterate over p tag node list. Pass in innerText to pig latin function. Replace p tag's innerText with the output.
+// allText.forEach((text) => {
+//   const updatedText = pigLatin(text.innerText);
+//   text.innerText = updatedText;
+// });
 
 // change all h2 tags to pig latin
 // const allh2 = document.querySelectorAll("h2");
@@ -27,11 +41,14 @@ imgs.forEach((img) => {
 //   const updatedText = pigLatin(link.innerText);
 //   link.innerText = updatedText;
 // });
+<<<<<<< HEAD
 // change image under About Us and overlay color to pink
 // const bannerWrapper = window.getComputedStyle(
 //   document.querySelector(".banner-wrapper"),
 //   ":after"
 // );
+=======
+>>>>>>> fb4ee2746faf8b79be39abb47e4b90161f220ae5
 
 // possible img for hero section: https://st2.depositphotos.com/1821481/5242/i/450/depositphotos_52424675-stock-photo-small-eared-pigs.jpg
 const parentDiv = document.querySelector("#hs_cos_wrapper_DND_banner-module-1");
@@ -39,6 +56,7 @@ const parentDiv = document.querySelector("#hs_cos_wrapper_DND_banner-module-1");
 const bannerWrapper = document.querySelector(".banner-wrapper");
 const pigImg = document.createElement("div");
 
+pigImg.classList.add("piggies");
 pigImg.style.minHeight = "60vh";
 pigImg.style.maxHeight = "100vh";
 pigImg.style.position = "relative";
@@ -60,7 +78,7 @@ parentDiv.replaceChild(pigImg, bannerWrapper);
 // bannerBackground.style.backgroundColor = "#e64980aa";
 // https://stackoverflow.com/questions/38872290/how-to-get-pseudo-element
 
-// change the background color --> from light blue to pink
+//////////////////////////////////////////// ** SELECT AND UPDATE BACKGROUNDS TO PINK
 const teamWrapper = document.querySelector(".team-wrapper");
 teamWrapper.style.backgroundColor = "#fff0f6";
 
@@ -78,10 +96,16 @@ slickList.parentElement.removeChild(slickList);
 
 const logo = document.querySelector("#hs-link-header_logo_hs_logo_widget");
 logo.parentElement.removeChild(logo);
-// const chatBox = document.querySelector("#hubspot-messages-iframe-container");
-// chatBox.parentElement.removeChild(chatBox);
 
-// TODO: Create the pig latin translator function
+const overlay = document.querySelectorAll(".overlay-background");
+Array.from(overlay).forEach((background) => {
+  background.style.backgroundColor = "#fff0f6";
+});
+
+const footer = document.querySelector(".footer");
+footer.style.backgroundColor = "#fff0f6";
+
+//////////////////////////////////////////// ** PIG LATIN CONVERTOR FUNCTION
 // https://www.getblend.com/blog/how-to-speak-pig-latin/
 // function pigLatin(string) {
 //   // split method to split the string into individual words, stored in an array
@@ -102,10 +126,18 @@ logo.parentElement.removeChild(logo);
 //     // rule 3
 //     // If the word contains a hyphen, separate into two words, manipulate the words individually and join them with the hyphen
 //   });
+<<<<<<< HEAD
 //   // join the array back into one string
 //   return pigLatinArray.join(" ");
 // }
 
+=======
+
+//   // join the array back into one string
+//   return pigLatinArray.join(" ");
+// }
+
+>>>>>>> fb4ee2746faf8b79be39abb47e4b90161f220ae5
 function pigLatinMemoized() {
   // create cache
   const translations = {};
@@ -114,16 +146,31 @@ function pigLatinMemoized() {
     const wordArray = string.split(" ");
     const pigLatinArray = wordArray.map((word) => {
       word = word.toUpperCase();
+<<<<<<< HEAD
       if(translations[word] === undefined) {
+=======
+      if (translations[word] === undefined) {
+>>>>>>> fb4ee2746faf8b79be39abb47e4b90161f220ae5
         let pigWord = word;
         if ("AEIOU".includes(pigWord[0])) {
           pigWord = pigWord + "YAY";
         } else {
           let vowelIndex = 1;
+<<<<<<< HEAD
           while (vowelIndex < pigWord.length && !"AEIOUY".includes(pigWord[vowelIndex])) {
             vowelIndex++;
           }
           pigWord = pigWord.slice(vowelIndex) + pigWord.slice(0, vowelIndex) + "AY";
+=======
+          while (
+            vowelIndex < pigWord.length &&
+            !"AEIOUY".includes(pigWord[vowelIndex])
+          ) {
+            vowelIndex++;
+          }
+          pigWord =
+            pigWord.slice(vowelIndex) + pigWord.slice(0, vowelIndex) + "AY";
+>>>>>>> fb4ee2746faf8b79be39abb47e4b90161f220ae5
         }
         translations[word] = pigWord[0] + pigWord.slice(1).toLowerCase();
       }
@@ -133,4 +180,66 @@ function pigLatinMemoized() {
   };
 }
 
-// Rotate Images
+////////////////////////////////////////////////////////////////////////////////////////** PLAYING AROUND ** ////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////// ** GO CRAZY BUTTON
+// Add button for DO NOT PRESS" to Make images go crazy
+const overloadBtn = document.createElement("button");
+overloadBtn.innerText = "DO NOT PRESS!";
+overloadBtn.style.fontSize = "20px";
+overloadBtn.style.border = "3px solid pink";
+overloadBtn.style.height = "auto";
+overloadBtn.style.width = "auto";
+overloadBtn.style.position = "absolute";
+overloadBtn.style.top = "50%";
+overloadBtn.style.left = "50%";
+overloadBtn.style.transform = "translate(-50%,-50%)";
+overloadBtn.style.boxShadow = "0 12px 24px pink";
+overloadBtn.style.borderRadius = "8px";
+overloadBtn.style.background = "linear-gradient(to top, white, pink)";
+pigImg.appendChild(overloadBtn);
+
+overloadBtn.addEventListener("mouseover", function () {
+  overloadBtn.style.transform = "translateY(-50%, -50%)";
+  overloadBtn.style.background = "linear-gradient(to top, white, #c2255c)";
+  overloadBtn.style.border = "3px solid #a61e4e71";
+  overloadBtn.style.fontSize = "40px";
+  overloadBtn.style.cursor = "pointer";
+});
+
+overloadBtn.addEventListener("mouseleave", function () {
+  overloadBtn.style.background = "linear-gradient(to top, white, pink)";
+  overloadBtn.style.border = "3px solid pink";
+  overloadBtn.style.fontSize = "20px";
+});
+
+overloadBtn.addEventListener("click", function () {
+  goCrazy();
+});
+
+//////////////////////////////////////////// ** GO CRAZY FUNCTIONALITY
+function goCrazy() {
+  const allEls = Array.from(document.querySelector(".body-wrapper").children);
+
+  // add animation to all changes with a 2sec transition
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync("* {transition: all 2s}");
+  document.adoptedStyleSheets = [sheet];
+
+  // Randomly spin every second
+  setInterval(() => {
+    allEls.forEach((el) => {
+      // get random degrees to spin in a circle
+      const rotate = Math.floor(Math.random() * 360);
+      // get a random position on client width
+      // const x = Math.floor(document.body.clientWidth * Math.random());
+      // get a random position on client width
+      // const y = Math.floor(document.body.clientHeight * Math.random());
+      // use transform to shift each element around
+      // el.style.transform = `translate(${x}px,${y}px) rotate(${rotate}deg)`;
+      el.style.transform = `rotate(${rotate}deg)`;
+    });
+  }, 1000);
+}
+
+// Change cursor to pig photo
